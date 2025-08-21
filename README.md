@@ -5,9 +5,16 @@ Pragmatic IOC, lightweight and fast to build.
 - No discovery at runtime
 - items that are discovered written into actual Java code to be compiled
 - generates less code and aims to be readable
+- Main concern is helping connect dependencies inside context, not go too fancy beyond that
 - make it easier to discover/navigate how code is connected
 - faster CI
 - No effort will be made to be compatible with older Java. Min required ATM: 25
+- No `@Scope` for now, all methods return singletons
+- Lazy loading, not supported out of the box, will be looking into Java [stable values](stable.values.md)
+
+## Context definition
+
+
 
 ## Maven project structure suggestions(for faster build)
 
@@ -26,7 +33,7 @@ Split beans into multiple contexts, to eventually split the code into modules. T
 
 Having multiple modules does not mean you should immediately run them as microservices. I do not usually use microservices, but when I do I use them only sparsely for jobs that are compute heavy. Scaling code that just does database queries is silly, as the most heavy lifting is done in the database, and there are many ways to optimize before scaling is a must (for example: read from slaves and write to master.
 
-## Config live reload
+## Live reload for configuration
 
 Many parts of an application if not all can be implemented to allow for config change without restart, and depending on the type of process can be even trivial to do.
 
