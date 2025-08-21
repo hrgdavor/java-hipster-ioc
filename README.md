@@ -1,7 +1,6 @@
-# java-hipster-ioc
+# java-hipster-ioc (well, maybe not IOC, but something similar)
 
-Pragmatic IOC, lightweight and fast to build.
-
+Some goals (ATM it guides development, and list will change as code settles a bit)
 - No discovery at runtime
 - items that are discovered written into actual Java code to be compiled
 - generates less code and aims to be readable
@@ -63,43 +62,7 @@ Main reason to inject own world as a dependency is for classes that create paren
   - This is often used in complex web applications where the root context holds shared services/config and child contexts hold web-specific beans.
 
 
-
-## Creating Multiple Contexts
-
-**Basic Example (Java Config):**
-
-```
-java// Parent context
-ApplicationContext parentContext = new AnnotationConfigApplicationContext(ParentConfig.class);
-
-// Child context
-AnnotationConfigApplicationContext childContext = new AnnotationConfigApplicationContext();
-childContext.setParent(parentContext);
-childContext.register(ChildConfig.class);
-childContext.refresh();
-```
-
-- Beans from `ParentConfig` are accessible in `childContext`.
-
-------
-
-## Spring Boot: Using SpringApplicationBuilder
-
-Spring Boot allows context hierarchies using `SpringApplicationBuilder`:
-
-```java
-new SpringApplicationBuilder()
-    .sources(MainApplication.class)
-    .child(DataContextConfiguration.class)
-    .sibling(WebContextConfiguration.class)
-    .run(args);
-```
-
-- You can have a parent with multiple children (siblings) where each child can't access siblings' beans but can access the parent's beans.
-
-------
-
-## Typical Use Cases
+## Typical Use Cases for multiple contexts
 
 - **Modular Applications:** Each module manages its own context to isolate configuration and dependencies.
 - **Shared Core Configuration:** Common services/config in a parent context, with specialized beans in children.
@@ -112,8 +75,6 @@ new SpringApplicationBuilder()
 
 - **Bean Visibility:** Child can access parent beans but not vice versa.
 - **Lifecycle Management:** Each context manages its own lifecycle; ensure proper startup/shutdown sequence.
-- **Spring Boot Defaults:** By default, only one context is created. Hierarchies are advanced cases—use `SpringApplicationBuilder` for full control.
-
 ------
 
 ## Practical Example
