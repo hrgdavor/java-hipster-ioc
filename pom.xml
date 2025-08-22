@@ -19,5 +19,6 @@
   <modules>
     <module>ioc</module>
     <module>processor</module>
+    <module>test</module>
   </modules>
 </project>

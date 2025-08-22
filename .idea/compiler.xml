@@ -4,6 +4,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="java-hipster-ioc" options="-proc:none" />
       <module name="java-hipster-ioc-processor" options="-proc:none" />
+      <module name="java-hipster-ioc-test" options="-proc:none" />
     </option>
   </component>
 </project>

@@ -12,7 +12,6 @@
 	<description>
 	</description>
 	<url>http://github.com/hrgdavor/java-hipster-ioc</url>
-	<groupId>hr.hrg</groupId>
 	<artifactId>java-hipster-ioc</artifactId>
 
 	<properties>

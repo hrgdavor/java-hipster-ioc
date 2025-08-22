@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+  <parent>
+		<groupId>hr.hrg</groupId>
+		<artifactId>java-hipster-ioc-parent</artifactId>
+	    <version>${revision}</version> <!-- this must exactly match parent's version -->
+  </parent>
+
+	<name>Java hipster IOC test</name>
+	<description>
+	</description>
+	<url>http://github.com/hrgdavor/java-hipster-ioc</url>
+	<artifactId>java-hipster-ioc-test</artifactId>
+
+	<properties>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>hr.hrg</groupId>
+			<artifactId>java-hipster-ioc</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+	</dependencies>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Davor Hrg</name>
+			<email>hrgdavor@gmail.com</email>
+			<organization>Github</organization>
+			<organizationUrl>https://github.com/hrgdavor</organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/hrgdavor/java-hipster-ioc.git</connection>
+		<developerConnection>scm:git:ssh://github.com:hrgdavor/java-hipster-ioc.git</developerConnection>
+		<url>http://github.com/hrgdavor/java-hipster-ioc/tree/master</url>
+	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler}</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<optimize>true</optimize>
+					<compilerArgument>-proc:none</compilerArgument>
+				</configuration>
+			</plugin>
+		  </plugins>
+		</build>
+	</project>

@@ -8,11 +8,59 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - make it easier to discover/navigate how code is connected
 - faster CI
 - No effort will be made to be compatible with older Java. Min required ATM: 25
-- No `@Scope` for now, all methods return singletons
+- No `@Scope` for now, all methods without parameters return singletons, factory methods return new instance each time
 - Lazy loading, not supported out of the box, will be looking into Java [stable values](stable.values.md)
+- circular dependencies are not allowed between beans
+- Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later4rtzhjklčćž
+- 23ASDFGHJKLČĆŽ
+- BO0H'OTNIIPITPLZKOPWO033'I49TUIIEORIIEJIEURJIOTRITORITOIRIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOTIR9I5 TŠTZOTOZOPTTTT
+
+Some random stuff
+- I like to call contexts `CtxFoor CtxBar ...` for faster search/jump in IDE.
+- I prefer to put generated classes in git (faster builds, generate is called when needed during development)
+- I prefer generating classes over runtime byte code generation
+- I hate Lombok for the fact it changes code directly as it compiles, and obscures what happens
+- I use jackson for JSON stuff
+- I wanted to try generated serializers and deserializers for jackson versus runtime ones.
+- [micronaut-serde-jackson](README.json.serialization.md) looks very promising for jackson serializers generation
 
 ## Context definition
 
+Define a public interface that is public facing part of your context
+```java
+public interface CtxMain extends CtxMainInternal{ 
+    ObjectMapper mapper();
+    SomeBean someBean();
+}
+```
+
+Then define an interface, that is package private, for your code that will be part of the module, like builders.
+
+```java
+public interface CtxMainInternal{
+    default ObjectMapper buildMapper(){
+      ObjectMapper out = new ObjectMapper();
+      out.init();
+      return out;
+    }
+}
+```
+
+```java
+public class CtxMainImpl implements CtxMain{
+  protected final ObjectMapper mapper;
+  protected final SomeBean someBean;
+
+  public CtxMainImpl(){
+    mapper = new ObjectMapper(); 
+    someBean = new SomeBean(mapper);
+  }
+  @Override public ObjectMapper mapper(){ return mapper; }
+  @Override public SomeBean someBean(){ return someBean; }
+}
+```
+
+The generated module would be
 
 
 ## Maven project structure suggestions(for faster build)
@@ -44,7 +92,7 @@ It is critical to implement validation, to reject a config change that would bre
 
 # Contexts, structured and many
 
-Context can be organized into a tree.
+Context also can have dependencies like beans. ... maybe they are not too diferent
 
 Services are allowed to inject whole world as dependency, just not get services from it in constructor.
 
