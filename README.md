@@ -11,9 +11,10 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - No `@Scope` for now, all methods without parameters return singletons, factory methods return new instance each time
 - Lazy loading, not supported out of the box, will be looking into Java [stable values](stable.values.md)
 - circular dependencies are not allowed between beans
-- Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later4rtzhjklčćž
-- 23ASDFGHJKLČĆŽ
-- BO0H'OTNIIPITPLZKOPWO033'I49TUIIEORIIEJIEURJIOTRITORITOIRIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOTIR9I5 TŠTZOTOZOPTTTT
+- Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later
+
+generated code style
+- beans without dependencies are created in field initializer
 
 Some random stuff
 - I like to call contexts `CtxFoor CtxBar ...` for faster search/jump in IDE.
