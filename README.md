@@ -17,7 +17,7 @@ generated code style
 - beans without dependencies are created in field initializer
 
 Some random stuff
-- I like to call contexts `CtxFoor CtxBar ...` for faster search/jump in IDE.
+- I like to call contexts `CtxFoo CtxBar ...` for faster search/jump in IDE.
 - I prefer to put generated classes in git (faster builds, generate is called when needed during development)
 - I prefer generating classes over runtime byte code generation
 - I hate Lombok for the fact it changes code directly as it compiles, and obscures what happens
@@ -27,7 +27,8 @@ Some random stuff
 
 ## Context definition
 
-Define a public interface that is public facing part of your context
+Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
+be part of the context, but not exposed.
 ```java
 public interface CtxMain extends CtxMainInternal{ 
     ObjectMapper mapper();
