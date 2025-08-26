@@ -31,8 +31,8 @@ Define a public interface that is public facing part of your context. Other tran
 be part of the context, but not exposed.
 ```java
 public interface CtxMain extends CtxMainInternal{ 
-    ObjectMapper mapper();
-    SomeBean someBean();
+    ObjectMapper mapper();// getters are so yesterday
+    SomeBean someBean(); // just do it like records :D
 }
 ```
 
