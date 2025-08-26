@@ -54,7 +54,7 @@ public class CtxMainImpl implements CtxMain{
   protected final SomeBean someBean;
 
   public CtxMainImpl(){
-    mapper = new ObjectMapper(); 
+    mapper = buildMapper(); 
     someBean = new SomeBean(mapper);
   }
   @Override public ObjectMapper mapper(){ return mapper; }
