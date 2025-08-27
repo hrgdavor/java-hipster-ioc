@@ -48,10 +48,10 @@ public interface CtxMainInternal{
 }
 ```
 
-The generated module would be like this:
+The generated context implementation would be like this:
 
 ```java
-/* auto generated module */
+/* auto generated context implementation */
 public class CtxMainImpl implements CtxMain{
   protected final ObjectMapper mapper;
   protected final SomeBean someBean;
