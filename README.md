@@ -48,7 +48,10 @@ public interface CtxMainInternal{
 }
 ```
 
+The generated module would be like this:
+
 ```java
+/* auto generated module */
 public class CtxMainImpl implements CtxMain{
   protected final ObjectMapper mapper;
   protected final SomeBean someBean;
@@ -62,7 +65,8 @@ public class CtxMainImpl implements CtxMain{
 }
 ```
 
-The generated module would be
+
+
 
 
 ## Maven project structure suggestions(for faster build)
