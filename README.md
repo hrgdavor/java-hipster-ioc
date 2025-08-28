@@ -14,9 +14,10 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later
 
 generated code style
-- beans without dependencies are created in field initializer
+- beans without dependencies are created in field initializer of ContextImpl
+- beans dependencies will decide sorting order for creating, and same sorting order must be for init* methods
 
-Some random stuff
+- Some random stuff
 - I like to call contexts `CtxFoo CtxBar ...` for faster search/jump in IDE.
 - I prefer to put generated classes in git (faster builds, generate is called when needed during development)
 - I prefer generating classes over runtime byte code generation
@@ -30,7 +31,14 @@ Some random stuff
 Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
 be part of the context, but not exposed.
 ```java
-public interface CtxMain extends CtxMainInternal{ 
+public interface CtxMain extends CtxMainInternal{
+
+    // factory method for beans auto-created
+    // name must follow convention "create"+classSimpleName
+    // first parameter must be the bean, 
+    // extra parameters if present, must be dependencies that can be resolved
+    ReportWorker createReportTask(ReportConfig config);
+    
     ObjectMapper mapper();// getters are so yesterday
     SomeBean someBean(); // just do it like records :D
 }
@@ -40,11 +48,20 @@ Then define an interface, that is package private, for your code that will be pa
 
 ```java
 public interface CtxMainInternal{
+    // build method, when simply calling a constructor is not good enough
     default ObjectMapper buildMapper(){
       ObjectMapper out = new ObjectMapper();
-      out.init();
+      out.addModule();
       return out;
     }
+    // init method for beans that can be auto-created
+    void initObjectMapper(ObjectMappe mapper){
+      // name must follow convention "init"+classSimpleName
+      // first parameter must be the bean, 
+      // extra parameters if present, must be dependencies that can be resolved
+        mapper.init();
+    }
+    
 }
 ```
 
@@ -57,8 +74,13 @@ public class CtxMainImpl implements CtxMain{
   protected final SomeBean someBean;
 
   public CtxMainImpl(){
-    mapper = buildMapper(); 
+    mapper = buildMapper();
     someBean = new SomeBean(mapper);
+    initObjectMapper(mapper);
+  }
+  /** ReportWorker factory */
+  @Override ReportWorker createReportTask(ReportConfig config){
+      return new ReportConfig(mapper, someBean, config);
   }
   @Override public ObjectMapper mapper(){ return mapper; }
   @Override public SomeBean someBean(){ return someBean; }
