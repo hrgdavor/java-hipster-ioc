@@ -87,6 +87,29 @@ public class CtxMainImpl implements CtxMain{
 }
 ```
 
+# Expanding dependencies
+
+When we make a context that depends on another context, all public beans from it will be made available to the new context.
+Similar can be useful if we have a complex configuration class that has few/many sections defined as properties
+
+You can manually expand parts of an object easily by declaring a method in internal interface.
+This exposes new bean for injection into others as dependency
+```java
+public interface CtxMainInternal { 
+    DbCinfig dbConfig(MainConfig mc){ return mc.db();}
+    EamailConfig emailConfig(MainConfig mc){ return mc.email();}   
+}
+```
+
+This adds a bit of code in internal module definition and code tiny bit less trackable when generated
+```java
+  someBean = new SomeBean(dep1,dep2, emailConfig(mainConfig));
+  // if automated by an annotation or some other conventioin to allow some objects or parts of to be expanded
+  // code in module could be more clear
+  someBean = new SomeBean(dep1,dep2, mainConfig.email());
+```
+
+
 # try to follow this pattern manually
 
 This is work in progress, and is meant to give high level goals of separating code in such way that writing it manually is not huge a hassle 
