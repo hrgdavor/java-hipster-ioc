@@ -104,8 +104,12 @@ public interface CtxMainInternal {
 This adds a bit of code in internal module definition and code tiny bit less trackable when generated
 ```java
   someBean = new SomeBean(dep1,dep2, emailConfig(mainConfig));
-  // if automated by an annotation or some other conventioin to allow some objects or parts of to be expanded
-  // code in module could be more clear
+```
+
+if automated by an annotation or some other conventioin to allow some objects or parts of to be expanded code in module could be more clear
+
+```java
+
   someBean = new SomeBean(dep1,dep2, mainConfig.email());
 ```
 
