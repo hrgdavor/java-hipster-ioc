@@ -109,6 +109,7 @@ public class CtxMainImpl implements CtxMain{
 When we make a context that depends on another context, all public beans from it will be made available to the new context.
 (Manually created contexts will be expanded too)
 Similar can be useful if we have a complex configuration class that has few/many sections defined as properties
+Expanding dependencies does not generate more code by itself, just enables autp-generate to use the expanded dependencies when needed.
 
 You can manually expand parts of an object easily by declaring a method in internal interface.
 This exposes new bean for injection into others as dependency
