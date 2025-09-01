@@ -26,6 +26,21 @@ generated code style
 - I wanted to try generated serializers and deserializers for jackson versus runtime ones.
 - [micronaut-serde-jackson](README.json.serialization.md) looks very promising for jackson serializers generation
 
+# todo
+
+generate dependency information as json
+
+- list contexts
+  - dependencies
+  - exposed beans
+  - expanded beans
+  - factories
+  - initializers
+  - AutoCloseable beans
+- produce a markdown that is clickable and explains each module where you can click each class if you need more details
+- can be used to produce a dependency graph
+- maybe some nice HTML interface to explore dependencies
+
 ## Context definition
 
 Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
@@ -43,6 +58,8 @@ public interface CtxMain extends CtxMainInternal{
     SomeBean someBean(); // just do it like records :D
 }
 ```
+You can declare a bean as Context even if there are no unimplemented methods (in that case, `Impl` class will not be created, but it will behave like 
+any auto-created context)
 
 Then define an interface, that is package private, for your code that will be part of the module, like builders.
 
@@ -90,6 +107,7 @@ public class CtxMainImpl implements CtxMain{
 # Expanding dependencies
 
 When we make a context that depends on another context, all public beans from it will be made available to the new context.
+(Manually created contexts will be expanded too)
 Similar can be useful if we have a complex configuration class that has few/many sections defined as properties
 
 You can manually expand parts of an object easily by declaring a method in internal interface.
