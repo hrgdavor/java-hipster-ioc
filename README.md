@@ -40,6 +40,9 @@ generate dependency information as json
 - produce a markdown that is clickable and explains each module where you can click each class if you need more details
 - can be used to produce a dependency graph
 - maybe some nice HTML interface to explore dependencies
+- make sure generated context does not call methods in methods that return a bean, to guarantee singleton as expected
+  - if return value from an expanded dependency or a custom build method changes (like maybe config) we store a snapshot
+  - it may be limiting, but is potential source of freaky bugs. dealing with mutable values should be done outside of hipster-ioc
 
 ## Context definition
 
