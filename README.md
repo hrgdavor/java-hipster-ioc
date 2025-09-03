@@ -14,8 +14,10 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later
 
 non goals as it stands, not written in stone
-- Lazy loading, not supported out of the box, closely following [stable values](stable.values.md)
-  - beans in context are created immediately (no need fo eagerLoad)
+
+- Lazy loading, 
+  - closely following [stable values](stable.values.md) as alternative
+  - beans in context are created immediately (also means there is no need for eagerLoad)
 
 generated code style
 - beans without dependencies are created in field initializer of ContextImpl
@@ -29,7 +31,9 @@ generated code style
 - I use jackson for JSON stuff
 - I wanted to try generated serializers and deserializers for jackson versus runtime ones.
 - [micronaut-serde-jackson](README.json.serialization.md) looks very promising for jackson serializers generation
-
+- for server with web,websocket, servlets:
+  - jetty:12 has 33 jars, and 4.5MB
+  - undertow:2.3 has 13 jars, and 4.5MB
 # todo
 
 generate dependency information as json
