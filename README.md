@@ -9,9 +9,13 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - faster CI
 - No effort will be made to be compatible with older Java. Min required ATM: 25
 - No `@Scope` for now, all methods without parameters return singletons, factory methods return new instance each time
-- Lazy loading, not supported out of the box, will be looking into Java [stable values](stable.values.md)
 - circular dependencies are not allowed between beans
+- circular dependencies not allowed between contexts
 - Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later
+
+non goals as it stands, not written in stone
+- Lazy loading, not supported out of the box, closely following [stable values](stable.values.md)
+  - beans in context are created immediately (no need fo eagerLoad)
 
 generated code style
 - beans without dependencies are created in field initializer of ContextImpl
@@ -42,8 +46,8 @@ generate dependency information as json
 - maybe some nice HTML interface to explore dependencies
 - make sure generated context does not call methods in methods that return a bean, to guarantee singleton as expected
   - if return value from an expanded dependency or a custom build method changes (like maybe config) we store a snapshot
-  - it may be limiting, but is potential source of freaky bugs. dealing with mutable values should be done outside of hipster-ioc
-
+  - it may be limiting, but is potential source of freaky bugs. dealing with mutable values should be done outside hipster-ioc
+- make sure any dependency used for factories are placed in fields, and not just a local var in constructor
 ## Context definition
 
 Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
