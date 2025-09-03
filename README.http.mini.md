@@ -2,6 +2,8 @@
 
 TODO: test, produced by AI (looks legit on first glance)
 
+You can set a custom Executor on the HttpServer to an executor that creates virtual threads
+
 Here is a minimal example demonstrating how to implement a Server-Sent Events (SSE) server using Java's built-in HttpServer:
 
 ```java
@@ -21,7 +23,7 @@ public class SimpleSseServer {
 
         server.createContext("/sse", new SseHandler());
 
-        server.setExecutor(Executors.newCachedThreadPool());
+        server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
         server.start();
 
         System.out.println("SSE server started at http://localhost:8080/sse");
