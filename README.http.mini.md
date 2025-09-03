@@ -38,9 +38,7 @@ public class SimpleSseServer {
             // Send HTTP 200 response headers, no content length for streaming
             exchange.sendResponseHeaders(200, 0);
 
-            OutputStream os = exchange.getResponseBody();
-
-            try {
+            try (OutputStream os = exchange.getResponseBody()){
                 // Send 5 SSE messages with 1 second interval
                 for (int i = 1; i <= 5; i++) {
                     String msg = "data: Message " + i + "\n\n";
@@ -50,8 +48,6 @@ public class SimpleSseServer {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-                os.close(); // Close connection after sending events
             }
         }
     }
