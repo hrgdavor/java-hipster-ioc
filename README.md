@@ -193,6 +193,8 @@ Services are allowed to inject whole world as dependency, just not get services 
 Main reason to inject own world as a dependency is for classes that create parent context
 
 
+# !!!!!!! ignore text below, AI mumbo jumbo, needs review, just a skeleton text
+
 
 - **Independently Loaded Contexts:**
   You can create completely separate `ApplicationContext` instances for different modules or functional parts. Each manages its own beans independently, useful for large, modular systems or for isolating parts of your app during testing.
