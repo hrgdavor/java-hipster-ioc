@@ -52,6 +52,14 @@ generate dependency information as json
   - if return value from an expanded dependency or a custom build method changes (like maybe config) we store a snapshot
   - it may be limiting, but is potential source of freaky bugs. dealing with mutable values should be done outside hipster-ioc
 - make sure any dependency used for factories are placed in fields, and not just a local var in constructor
+- explore if it would be a good practice to extract factory methods from context into a separate interface (this could be enforced)
+- explore enforcing some rules that are deemed a good practice (with ability to  disable them via config or annotation if annoying to user)
+
+dependency graph generation exploration ideas
+- group by context, 
+- mark dependencies for factory method separately from additional parameters.
+- 
+
 ## Context definition
 
 Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
@@ -188,9 +196,10 @@ It is critical to implement validation, to reject a config change that would bre
 
 Context also can have dependencies like beans. ... maybe they are not too diferent
 
-Services are allowed to inject whole world as dependency, just not get services from it in constructor.
+Beans are allowed to inject own where they are defined context as dependency.
+Beans must not call any methods of injected dependencies(other beans or contexts) except if it is an immutable record like config that is guaranteed to be loaded beforehand .
 
-Main reason to inject own world as a dependency is for classes that create parent context
+Main reason to inject own context as a dependency is for classes that need to call factory methods from the context.
 
 
 # !!!!!!! ignore text below, AI mumbo jumbo, needs review, just a skeleton text
