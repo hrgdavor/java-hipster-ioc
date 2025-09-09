@@ -10,8 +10,20 @@
     <maven-compiler>3.14.0</maven-compiler>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <groupId>hr.hrg</groupId>
+    <groupId>hr.hrg</groupId>
   <artifactId>java-hipster-ioc-parent</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>

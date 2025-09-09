@@ -76,3 +76,48 @@ This ensures clearer semantics, easier debugging, and avoids hidden dependencies
 In summary: while technically feasible to call one stable value's initializer from another, it is not advisable due to risks of complexity, potential cycles, and less maintainable code. It is better to keep stable value initializations separate and well-defined
 
 
+# polyfill
+
+A good polyfill for the Stable Values API that uses synchronization to prepare a codebase for future stable value usage can be implemented using a thread-safe lazy initialization pattern with double-checked locking. This mimics the deferred, at-most-once initialization behavior of StableValue, ensuring safe concurrent initialization and immutable-like access afterward.
+
+```java
+import java.util.Objects;
+import java.util.function.Supplier;
+
+public class StableValuePolyfill<T> {
+    private volatile T value;
+    private final Object lock = new Object();
+
+    public T getOrInitialize(Supplier<T> supplier) {
+        T result = value;
+        if (result == null) {
+            synchronized (lock) {
+                if (value == null) {
+                    value = Objects.requireNonNull(supplier.get());
+                }
+                result = value;
+            }
+        }
+        return result;
+    }
+}
+```
+
+Usage:
+
+```java
+private final StableValuePolyfill<Settings> settings = new StableValuePolyfill<>();
+
+Settings getSettings() {
+    return settings.getOrInitialize(this::loadSettingsFromDatabase);
+}
+```
+
+This polyfill:
+
+- Guarantees at-most-once initialization with synchronization.
+- Offers deferred, thread-safe lazy initialization similar to StableValue.
+- Provides immutable-like access (no changes after first set).
+- Uses standard Java APIs and idioms available in current versions.
+When migrating to the real Stable Values API in Java 25+, the polyfill code can be easily replaced by calls to StableValue without major changes in calling code structure
+(link)[].

@@ -20,6 +20,10 @@ non goals as it stands, not written in stone
 - Lazy loading, 
   - closely following [stable values](stable.values.md) as alternative
   - beans in context are created immediately (also means there is no need for eagerLoad)
+  - allow dependency of type: Supplier<Bean>
+  - implement stable value polyfill and generate that code until JEP is finalised. 
+    - use parameter to decide to generate stable value or polyfill based code.
+    - this way no big refactor is needed, just flip the option or switch to version where stable value is default
 
 generated code style
 - generate region and endregion for sections
