@@ -11,7 +11,9 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - No `@Scope` for now, all methods without parameters return singletons, factory methods return new instance each time
 - circular dependencies are not allowed between beans
 - circular dependencies not allowed between contexts
-- Bean is allowed to depend on the context in which it is defined ( not allowed to use inside the constructor, just store the reference, and use later
+- Bean is not allowed to depend on the context in which it is defined
+- BeanFactory is separate interface that context implementation implements, but must not the context itself
+  - this allows for simpler code inside implementation ,as it has access to dependencies for the factory methods
 
 non goals as it stands, not written in stone
 
@@ -45,6 +47,7 @@ generate dependency information as json
   - factories
   - initializers
   - AutoCloseable beans
+- dependencies that are exposed and those used in factories must be instance fields
 - produce a markdown that is clickable and explains each module where you can click each class if you need more details
 - can be used to produce a dependency graph
 - maybe some nice HTML interface to explore dependencies
@@ -122,6 +125,10 @@ public class CtxMainImpl implements CtxMain{
   @Override public SomeBean someBean(){ return someBean; }
 }
 ```
+
+Factories
+ - convention : ContextName+(BeanFactory|Beans)
+ - define in annotation
 
 # Expanding dependencies
 
