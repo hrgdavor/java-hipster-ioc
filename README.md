@@ -22,6 +22,10 @@ non goals as it stands, not written in stone
   - beans in context are created immediately (also means there is no need for eagerLoad)
 
 generated code style
+- generate region and endregion for sections
+  - instance fields ( count > 5)
+  - methods exposing public Beans  (count > 3)
+  - BeanFactory methods (count > 3)
 - beans without dependencies are created in field initializer of ContextImpl
 - beans dependencies will decide sorting order for creating, and same sorting order must be for init* methods
 
