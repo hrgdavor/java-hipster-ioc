@@ -60,7 +60,7 @@ It must be via setter, constructor are not allowed to cause circular dependencie
 
 ```java
 @Circular 
-public void setOtheDep(OtherDep other){
+public void setOtherDep(OtherDep other){
     this.other = other;
 } 
 ```
