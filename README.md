@@ -44,6 +44,27 @@ generated code style
 - for server with web,websocket, servlets:
   - jetty:12 has 33 jars, and 4.5MB
   - undertow:2.3 has 13 jars, and 4.5MB
+
+## circular dependencies
+
+This topic is bti circular in nature, I keep running in circles, to use or not to use circular dependencies.
+
+I can say there at least should be effort to reduce.
+
+Possible use-case for circular dependency 
+ - splitting a large class into few classes (could be temporary until code is split to not need circular dep)
+
+Formalize circular dependencies to be declared as such, so they can be configured to throw warning if intention is to have it as temporary fix, ot throw error when project is strict about it.
+
+It must be via setter, constructor are not allowed to cause circular dependencies as it will not be feasible to combine them.
+
+```java
+@Circular 
+public void setOtheDep(OtherDep other){
+    this.other = other;
+} 
+```
+
 # todo
 
 generate dependency information as json

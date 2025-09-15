@@ -121,3 +121,9 @@ This polyfill:
 - Uses standard Java APIs and idioms available in current versions.
 When migrating to the real Stable Values API in Java 25+, the polyfill code can be easily replaced by calls to StableValue without major changes in calling code structure
 (link)[].
+
+# stable values and provider
+
+From what I understand stable values will allow performant use of providers for lazy loaded singletons. The polyfill can be used to prepare the codebase,as it is valuable tool.
+
+
