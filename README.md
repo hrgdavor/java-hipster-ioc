@@ -97,7 +97,8 @@ dependency graph generation exploration ideas
 Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
 be part of the context, but not exposed.
 ```java
-public abstract class CtxMain extends CtxMainInternal{
+@HipsterContext(factory=CtxMainBeanFactory.class)
+public abstract class CtxMain{
     
   public abstract ObjectMapper mapper();// getters are so yesterday
   public abstract SomeBean someBean(); // just do it like records :D
@@ -134,8 +135,7 @@ public interface CtxMainBeanFactory {
 The generated context implementation would be like this:
 
 ```java
-/* auto generated context implementation */
-public class CtxMainImpl implements CtxMain{
+public class CtxMainImpl extends CtxMain implements CtxMainBeanFactory{
   protected final ObjectMapper mapper;
   protected final SomeBean someBean;
 
@@ -176,6 +176,7 @@ public abstract class CtxMain{
     //...
 }
 ```
+
 This adds a bit of code in module definition and generated code is tiny bit less easy to follow.
 
 ```java
