@@ -168,7 +168,7 @@ When we make a context that depends on another context, all public beans from it
 Similar can be useful if we have a complex configuration class that has few/many sections defined as properties
 Expanding dependencies does not generate more code by itself, just enables auto-generate to use the expanded dependencies when needed.
 
-You can manually expand parts of an object easily by declaring a method in module. This exposes new bean for injection into others as dependency.
+You can manually expand parts of an object as dependency easily by declaring a method in module. This exposes new bean for injection as dependency.
 ```java
 public abstract class CtxMain{ 
     //...
