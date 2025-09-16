@@ -120,6 +120,7 @@ public abstract class CtxMain{
   
 }
 ```
+
 Define a public interface for bean factory to be able to inject it without creating dependency on the context itself.
 
 ```java
