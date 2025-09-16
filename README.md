@@ -97,39 +97,37 @@ dependency graph generation exploration ideas
 Define a public interface that is public facing part of your context. Other transitive dependencies that their dependencies resolved will
 be part of the context, but not exposed.
 ```java
-public interface CtxMain extends CtxMainInternal{
+public abstract class CtxMain extends CtxMainInternal{
+    
+  public abstract ObjectMapper mapper();// getters are so yesterday
+  public abstract SomeBean someBean(); // just do it like records :D
 
+  // build method, when simply calling a constructor is not good enough
+  protected ObjectMapper buildMapper(){
+    ObjectMapper out = new ObjectMapper();
+    out.addModule();
+    return out;
+  }
+  
+  // init method for beans that can be auto-created
+  protected void initObjectMapper(ObjectMappe mapper){
+    // name must follow convention "init"+classSimpleName
+    // first parameter must be the bean, 
+    // extra parameters if present, must be dependencies that can be resolved
+    mapper.init();
+  }
+  
+}
+```
+Define a public interface for bean factory to be able to inject it without creating dependency on the context itself.
+
+```java
+public interface CtxMainBeanFactory {
     // factory method for beans auto-created
     // name must follow convention "create"+classSimpleName
     // first parameter must be the bean, 
     // extra parameters if present, must be dependencies that can be resolved
     ReportWorker createReportTask(ReportConfig config);
-    
-    ObjectMapper mapper();// getters are so yesterday
-    SomeBean someBean(); // just do it like records :D
-}
-```
-You can declare a bean as Context even if there are no unimplemented methods (in that case, `Impl` class will not be created, but it will behave like 
-any auto-created context)
-
-Then define an interface, that is package private, for your code that will be part of the module, like builders.
-
-```java
-public interface CtxMainInternal{
-    // build method, when simply calling a constructor is not good enough
-    default ObjectMapper buildMapper(){
-      ObjectMapper out = new ObjectMapper();
-      out.addModule();
-      return out;
-    }
-    // init method for beans that can be auto-created
-    void initObjectMapper(ObjectMappe mapper){
-      // name must follow convention "init"+classSimpleName
-      // first parameter must be the bean, 
-      // extra parameters if present, must be dependencies that can be resolved
-        mapper.init();
-    }
-    
 }
 ```
 
@@ -155,6 +153,9 @@ public class CtxMainImpl implements CtxMain{
 }
 ```
 
+You can declare a bean as Context even if there are no unimplemented methods (in that case, `Impl` class will not be created, but it will behave like
+any auto-created context)
+
 Factories
  - convention : ContextName+(BeanFactory|Beans)
  - define in annotation
@@ -164,23 +165,24 @@ Factories
 When we make a context that depends on another context, all public beans from it will be made available to the new context.
 (Manually created contexts will be expanded too)
 Similar can be useful if we have a complex configuration class that has few/many sections defined as properties
-Expanding dependencies does not generate more code by itself, just enables autp-generate to use the expanded dependencies when needed.
+Expanding dependencies does not generate more code by itself, just enables auto-generate to use the expanded dependencies when needed.
 
-You can manually expand parts of an object easily by declaring a method in internal interface.
-This exposes new bean for injection into others as dependency
+You can manually expand parts of an object easily by declaring a method in module. This exposes new bean for injection into others as dependency.
 ```java
-public interface CtxMainInternal { 
-    DbCinfig dbConfig(MainConfig mc){ return mc.db();}
-    EamailConfig emailConfig(MainConfig mc){ return mc.email();}   
+public abstract class CtxMain{ 
+    //...
+    protected DbConfig dbConfig(MainConfig mc){ return mc.db();}
+    protected EamailConfig emailConfig(MainConfig mc){ return mc.email();}
+    //...
 }
 ```
+This adds a bit of code in module definition and generated code is tiny bit less easy to follow.
 
-This adds a bit of code in internal module definition and code tiny bit less trackable when generated
 ```java
   someBean = new SomeBean(dep1,dep2, emailConfig(mainConfig));
 ```
 
-if automated by an annotation or some other conventioin to allow some objects or parts of to be expanded code in module could be more clear
+if we have another context visible inside the module as dependency, or a bean marked by `@HipsterContext(expandOnly=true)`, it is then allowed to expand public methods as bean suppliers. It then gives more straight forward generated code, and no manual boilerplate for this use-case.
 
 ```java
   someBean = new SomeBean(dep1,dep2, mainConfig.email());
