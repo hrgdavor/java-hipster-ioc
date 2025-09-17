@@ -1,5 +1,7 @@
 # java-hipster-ioc (well, maybe not IOC, but something similar)
 
+Makes context almost as simple as regular bean.
+
 Some goals (ATM it guides development, and list will change as code settles a bit)
 - No discovery at runtime
 - items that are discovered written into actual Java code to be compiled
@@ -157,9 +159,10 @@ public class CtxMainImpl extends CtxMain implements CtxMainBeanFactory{
 You can declare a bean as Context even if there are no unimplemented methods (in that case, `Impl` class will not be created, but it will behave like
 any auto-created context)
 
-Factories
+Factories with assisted Injection
  - convention : ContextName+(BeanFactory|Beans)
  - define in annotation
+ - Similar to Assisted Injection - https://avaje.io/inject/#assistInject
 
 # Expanding dependencies
 
