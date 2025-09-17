@@ -16,8 +16,13 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - Bean is not allowed to depend on the context in which it is defined
 - BeanFactory is separate interface that context implementation implements, but must not the context itself
   - this allows for simpler code inside implementation ,as it has access to dependencies for the factory methods
+- strict mode, disallow mixing module implementation methods and public abstract methods that expose beans,
+  - to avoid temptation to call them in module code
+  - calling them while context is not yet created (build helper method called from constructor) will cause freaky errors
+  - maybe enforce this by analyzing AST (more complicated to implement)
+  - or more naive version: search source file for method call `getBean1(`
 
-non goals as it stands, not written in stone
+  - non goals as it stands, not written in stone
 
 - Lazy loading, 
   - closely following [stable values](stable.values.md) as alternative
