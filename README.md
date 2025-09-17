@@ -72,6 +72,12 @@ public void setOtherDep(OtherDep other){
 } 
 ```
 
+## strinct mode
+ - no circular deps
+ - no combining public method declaration for context and context implementation
+   - or generate test implementation that throws exception at runtime if pub methods are called while constructing context
+   - or add null check and throw a message that explains what happened
+
 # todo
 
 generate dependency information as json
