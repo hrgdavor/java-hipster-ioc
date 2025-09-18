@@ -22,7 +22,8 @@ Some goals (ATM it guides development, and list will change as code settles a bi
   - maybe enforce this by analyzing AST (more complicated to implement)
   - or more naive version: search source file for method call `getBean1(`
 
-  - non goals as it stands, not written in stone
+
+non goals as it stands, not written in stone
 
 - Lazy loading, 
   - closely following [stable values](stable.values.md) as alternative
