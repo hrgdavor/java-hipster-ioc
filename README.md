@@ -9,7 +9,7 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - Main concern is helping connect dependencies inside context, not go too fancy beyond that
 - make it easier to discover/navigate how code is connected
 - faster CI
-- No effort will be made to be compatible with older Java. Min required ATM: 25
+- No considerable effort will be made to be compatible with older Java. 25 is min Java considered at the moment. 
 - No `@Scope` for now, all methods without parameters return singletons, factory methods return new instance each time
 - circular dependencies are not allowed between beans
 - circular dependencies not allowed between contexts
@@ -49,6 +49,7 @@ generated code style
 - I use jackson for JSON stuff
 - I wanted to try generated serializers and deserializers for jackson versus runtime ones.
 - [micronaut-serde-jackson](README.json.serialization.md) looks very promising for jackson serializers generation
+- 
 - for server with web,websocket, servlets:
   - jetty:12 has 33 jars, and 4.5MB
   - undertow:2.3 has 13 jars, and 4.5MB
