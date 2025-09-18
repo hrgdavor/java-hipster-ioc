@@ -1,5 +1,7 @@
 # Java stable 
 
+More details in jvm internal @Stable annotation that is basis for stable values https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/jdk/internal/vm/annotation/Stable.java
+
 https://www.infoq.com/news/2025/06/java25-stable-values-api-startup/
 
 Java stable values are a new preview feature introduced in Java 25 via JEP 502 that enable the concept of deferred immutability for values in a thread-safe and optimized manner. A stable value is a special kind of value that can be initialized exactly once at any point during the runtime of an application and remains immutable thereafter. This means that unlike usual final fields that must be assigned at construction or class initialization time, stable values can be lazily initialized on demand while still giving the runtime guarantees and optimizations associated with constant values.
