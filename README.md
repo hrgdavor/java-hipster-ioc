@@ -1,6 +1,6 @@
 # java-hipster-ioc (well, maybe not IOC, but something similar)
 
-Makes context almost as simple as regular bean.
+Makes context almost as simple as regular bean. Less bloat, more fun, more speed(build,start,runtime).
 
 Some goals (ATM it guides development, and list will change as code settles a bit)
 - No discovery at runtime
