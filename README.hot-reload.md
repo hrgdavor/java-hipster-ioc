@@ -8,7 +8,7 @@ App that uses jetty to handle HTTPS requests (REST or JSONRPC) and also websocke
 - app - runs in separate classloader so it can be reloaded from new source
 - interface in kernel code to pass HTTP and websocket to app
 - graceful handover
-- new version of app can handover some resources or keep shared resource until completely shutdown
+- new version of app can hand over some resources or keep shared resource until completely shutdown
 - old version finishes running jobs, and reports when ready to be discarded
 - minimal dependencies in kernel or all dependencies in kernel is an option
-- full restart needed when dependencies in the kernel need to version change
+- full restart needed when dependencies in the kernel need version change
