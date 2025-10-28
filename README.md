@@ -6,6 +6,8 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 - No discovery at runtime
 - items that are discovered written into actual Java code to be compiled
 - generates less code and aims to be readable
+- things that are connected must be navigable (static listeners, not held in list, but actaully executed)
+  - it is ok to have annotations for discovery, but it then must result in code where discovered thing is used and thus visible to IDE introspection
 - Main concern is helping connect dependencies inside context, not go too fancy beyond that
 - make it easier to discover/navigate how code is connected
 - faster CI
