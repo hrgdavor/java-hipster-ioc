@@ -1,4 +1,4 @@
-# Java stable 
+# Java lazy constants (was: stable values) 
 
 More details in jvm internal @Stable annotation that is basis for stable values https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/jdk/internal/vm/annotation/Stable.java
 

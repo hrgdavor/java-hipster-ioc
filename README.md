@@ -28,7 +28,7 @@ Some goals (ATM it guides development, and list will change as code settles a bi
 non goals as it stands, not written in stone
 
 - Lazy loading, 
-  - closely following [stable values](stable.values.md) as alternative
+  - closely following [lazy constant](lazy.constants.md) (previously called stable values) as alternative
   - beans in context are created immediately (also means there is no need for eagerLoad)
   - allow dependency of type: Supplier<Bean>
   - implement stable value polyfill and generate that code until JEP is finalised. 
@@ -55,6 +55,14 @@ generated code style
 - for server with web,websocket, servlets:
   - jetty:12 has 33 jars, and 4.5MB
   - undertow:2.3 has 13 jars, and 4.5MB
+
+## How about not forcing interfaces for all beans
+
+There is a constant push to turn everything into an interface, often followed by making up excuses like "testability" to justify it. 
+However, interfaces often make code more obfuscated and harder to navigate. Just define your beans as classes. You will likely test 
+their interoperability in E2E tests anyway. Instead, split your code so that the logic doing the heavy lifting resides 
+in standalone functions or "workhorse" classes that remain independent.
+
 
 ## circular dependencies
 
